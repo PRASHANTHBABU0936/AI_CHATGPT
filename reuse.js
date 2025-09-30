@@ -1,0 +1,17 @@
+// package.json=
+// {
+//   "dependencies": {
+//     "cors": "^2.8.5",
+//     "dotenv": "^17.2.1",
+//     "express": "^5.1.0",
+//     "nodemon": "^3.1.10",
+//     "openai": "^5.12.2",
+//   "type": "module"
+
+
+//   }
+// }
+
+
+
+

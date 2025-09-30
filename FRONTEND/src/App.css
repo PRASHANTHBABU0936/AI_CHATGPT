@@ -1,0 +1,43 @@
+* {
+    color: #ececec;
+    font-family: Roboto, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+}
+
+.app {
+    background-color: #212121;
+    display: flex;
+}
+
+
+
+
+
+
+
+
+
+
+/* //addedd */
+.container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column;
+  }
+}
+.chat-area {
+  flex: 2 1 60%;
+  min-width: 300px;
+}
+.sidebar {
+  flex: 1 1 30%;
+  min-width: 200px;
+}
