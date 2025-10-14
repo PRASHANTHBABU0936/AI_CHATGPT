@@ -41,7 +41,7 @@ const userSchema = new mongoose.Schema({
 });
 
 // Index for better performance
-userSchema.index({ email: 1 });
+// userSchema.index({ email: 1 });
 userSchema.index({ createdAt: -1 });
 
 export default mongoose.model("User", userSchema);

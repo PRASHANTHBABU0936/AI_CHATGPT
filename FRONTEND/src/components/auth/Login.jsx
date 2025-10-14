@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '../../contexts/AuthContext';
+import { useNavigate } from 'react-router-dom';
 import './AuthForm.css';
 
 const Login = ({ onSwitchToRegister }) => {
@@ -9,6 +10,7 @@ const Login = ({ onSwitchToRegister }) => {
     password: ''
   });
   const [formErrors, setFormErrors] = useState({});
+  const navigate = useNavigate(); // Added here
 
   useEffect(() => {
     clearError();
@@ -50,15 +52,12 @@ const Login = ({ onSwitchToRegister }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     
-    if (!validateForm()) {
-      return;
-    }
+    if (!validateForm()) return;
 
     const result = await login(formData.email, formData.password);
     
-    if (!result.success) {
-      // Error is already set in context
-      return;
+    if (result.success) {
+      navigate('/ai-gpt'); // Redirect after successful login
     }
   };
 
@@ -71,11 +70,7 @@ const Login = ({ onSwitchToRegister }) => {
         </div>
 
         <form onSubmit={handleSubmit} className="auth-form">
-          {error && (
-            <div className="error-message">
-              {error}
-            </div>
-          )}
+          {error && <div className="error-message">{error}</div>}
 
           <div className="form-group">
             <label htmlFor="email">Email</label>
@@ -90,9 +85,7 @@ const Login = ({ onSwitchToRegister }) => {
               disabled={loading}
               autoComplete="email"
             />
-            {formErrors.email && (
-              <span className="field-error">{formErrors.email}</span>
-            )}
+            {formErrors.email && <span className="field-error">{formErrors.email}</span>}
           </div>
 
           <div className="form-group">
@@ -108,16 +101,10 @@ const Login = ({ onSwitchToRegister }) => {
               disabled={loading}
               autoComplete="current-password"
             />
-            {formErrors.password && (
-              <span className="field-error">{formErrors.password}</span>
-            )}
+            {formErrors.password && <span className="field-error">{formErrors.password}</span>}
           </div>
 
-          <button 
-            type="submit" 
-            className="auth-button"
-            disabled={loading}
-          >
+          <button type="submit" className="auth-button" disabled={loading}>
             {loading ? (
               <div className="loading-spinner">
                 <div className="spinner"></div>
@@ -132,8 +119,8 @@ const Login = ({ onSwitchToRegister }) => {
         <div className="auth-footer">
           <p>
             Don't have an account?{' '}
-            <button 
-              type="button" 
+            <button
+              type="button"
               className="link-button"
               onClick={onSwitchToRegister}
               disabled={loading}
@@ -148,4 +135,3 @@ const Login = ({ onSwitchToRegister }) => {
 };
 
 export default Login;
-
