@@ -12,36 +12,38 @@ function ChatWindow() {
     const [isOpen, setIsOpen] = useState(false);
 
     const getReply = async () => {
-        setLoading(true);
-        setNewChat(false);
+    setLoading(true);
+    setNewChat(false);
 
-        console.log("message ", prompt, " threadId ", currThreadId);
-        
-        // Get token from localStorage
-        const token = localStorage.getItem('token');
-        
-        const options = {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                "Authorization": `Bearer ${token}`
-            },
-            body: JSON.stringify({
-                message: prompt,
-                threadId: currThreadId
-            })
-        };
+    console.log("message ", prompt, " threadId ", currThreadId);
+    
+    // Get token from localStorage
+    const token = localStorage.getItem('token');
+    
+    const options = {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`
+        },
+        body: JSON.stringify({
+            message: prompt,
+            threadId: currThreadId
+        })
+    };
 
-        try {
-            const response = await fetch("http://localhost:8080/api/chat", options);
-            const res = await response.json();
-            console.log(res);
-            setReply(res.reply);
-        } catch(err) {
-            console.log(err);
-        }
-        setLoading(false);
+    try {
+        const API_URL = "https://ai-chatgpt-backend.onrender.com"; // Render backend
+        const response = await fetch(`${API_URL}/api/chat`, options);
+        const res = await response.json();
+        console.log(res);
+        setReply(res.reply);
+    } catch(err) {
+        console.log(err);
     }
+    setLoading(false);
+}
+
 
     //Append new chat to prevChats
     useEffect(() => {
